@@ -1,0 +1,197 @@
+{
+  "swaggerDefinition": {
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Your API Documentation",
+      "version": "1.0.0",
+      "description": "Description of your API"
+    },
+
+    "servers": [
+      {
+        "url": "http://localhost:3000"
+      }
+    ],
+    "paths": {
+      "/": {
+        "get": {
+          "summary": "Get a friendly greeting",
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "text/plain": {
+                  "example": "Hello, World!"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/products": {
+        "get": {
+          "summary": "Get a list of products",
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {
+                  "example": [
+                    {
+                      "id": 21,
+                      "title": "- Daal Masoor 500 grams",
+                      "description": "Fine quality Branded Product Keep in a cool and dry place",
+                      "price": 20,
+                      "discountPercentage": 4.81,
+                      "rating": 4.44,
+                      "stock": 133,
+                      "brand": "Saaf & Khaas",
+                      "category": "groceries",
+                      "thumbnail": "https://cdn.dummyjson.com/product-images/21/thumbnail.png",
+                      "images": [
+                        "https://cdn.dummyjson.com/product-images/21/1.png",
+                        "https://cdn.dummyjson.com/product-images/21/2.jpg",
+                        "https://cdn.dummyjson.com/product-images/21/3.jpg"
+                      ]
+                    },
+                    {
+                      "id": 28,
+                      "title": "3D Embellishment Art Lamp",
+                      "description": "3D led lamp sticker Wall sticker 3d wall art light on/off button  cell operated (included)",
+                      "price": 20,
+                      "discountPercentage": 16.49,
+                      "rating": 4.82,
+                      "stock": 54,
+                      "brand": "LED Lights",
+                      "category": "home-decoration",
+                      "thumbnail": "https://cdn.dummyjson.com/product-images/28/thumbnail.jpg",
+                      "images": [
+                        "https://cdn.dummyjson.com/product-images/28/1.jpg",
+                        "https://cdn.dummyjson.com/product-images/28/2.jpg",
+                        "https://cdn.dummyjson.com/product-images/28/3.png",
+                        "https://cdn.dummyjson.com/product-images/28/4.jpg",
+                        "https://cdn.dummyjson.com/product-images/28/thumbnail.jpg"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Create a new product (Not implemented)",
+          "responses": {
+            "501": {
+              "description": "Not implemented"
+            }
+          }
+        }
+      },
+      "/login": {
+        "post": {
+          "summary": "User login",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "username": {
+                      "type": "string"
+                    },
+                    "password": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "username",
+                    "password"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful login",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "id": 15,
+                    "username": "kminchelle",
+                    "email": "kminchelle@qq.com",
+                    "firstName": "Jeanne",
+                    "lastName": "Halvorson",
+                    "gender": "female",
+                    "image": "https://robohash.org/Jeanne.png?set=set4",
+                    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsInVzZXJuYW1lIjoia21pbmNoZWxsZSIsImVtYWlsIjoia21pbmNoZWxsZUBxcS5jb20iLCJmaXJzdE5hbWUiOiJKZWFubmUiLCJsYXN0TmFtZSI6IkhhbHZvcnNvbiIsImdlbmRlciI6ImZlbWFsZSIsImltYWdlIjoiaHR0cHM6Ly9yb2JvaGFzaC5vcmcvSmVhbm5lLnBuZz9zZXQ9c2V0NCIsImlhdCI6MTcwNzU4MzYyNywiZXhwIjoxNzA3NTg3MjI3fQ.BbqdTBCLXdHvsId11y2yPZG-bu1dSZoJUMHW2BSEL1k"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Invalid credentials"
+            }
+          }
+        }
+      },
+      "/cart": {
+        "post": {
+          "summary": "Add a product to the user's cart",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "productId": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "productId"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "updated products in the cart",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "11": {
+                      "quantity": 2,
+                      "addedAt": "creation time",
+                      "updatedAt": "update time"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "securitySchemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      }
+    }
+  }
+  ,
+  "apis": [
+    "./app.ts"
+  ]
+}
